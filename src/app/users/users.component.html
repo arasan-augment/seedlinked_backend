@@ -1,0 +1,192 @@
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="bs-element-section">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--<h2 id="nav-tabs">Tabs</h2>-->
+                            <div class="bs-component">
+                                <ul class="nav nav-tabs">
+                                    <li class="" [ngClass]="{'active': activateTab==='listusers'}">
+                                        <a href="#listusers" data-toggle="tab" (click)="resetAlertForm(); resetFormValues(uf); resetTabActiveList();">List Users</a>
+                                    </li>
+                                    <li class="" [ngClass]="{'active': activateTab==='addusers'}">
+                                        <a href="#addusers" data-toggle="tab" (click)="resetAlertForm(); resetFormValues(uf); resetTabActiveAdd();">Add/Edit Users</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade in" [ngClass]="{'active': activateTab==='listusers'}" id="listusers">
+                                        <div class="col-md-12">
+                                            <!--<h3 class="card-title">Table Hover</h3>-->
+                                            <br>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Email Id</th>
+                                                        <th>Role</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let user of users; let i = index;">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{user.firstname}}</td>
+                                                        <td>{{user.lastname}}</td>
+                                                        <td>{{user.email}}</td>
+                                                        <td>{{user.user_role_name}}</td>
+                                                        <td>
+                                                            <a class="btn btn-primary btn-sm" href="javascript:void(0)" (click)="editUser(user.user_id)"><i class="fa fa-pencil"></i></a>
+                                                            <a class="btn btn-success btn-sm" href="javascript:void(0)" (click)="viewUser(user.user_id)"><i class="fa fa-eye"></i></a>
+                                                            <a class="btn btn-danger btn-sm" href="javascript:void(0)" (click)="deleteUser(user.user_id)"><i class="fa fa-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade in" [ngClass]="{'active': activateTab==='addusers'}" id="addusers">
+                                        <div class="col-md-12">
+                                            <div class="card1">
+                                                <br>
+                                                <!--<h3 class="card-title">Register</h3>-->
+                                                <form name="addUsersForm" (ngSubmit)="(uf.form.valid && addUser(uf))" #uf="ngForm" novalidate class="form-horizontal">
+                                                 	<div class="card-body">
+                                                 		<div class="row">
+	                                                        <input type="hidden" class="form-control" name="userID" id="userID" [(ngModel)]="usermodel.userID" #userID="ngModel" value="{{usermodel.id}}">	                                                        
+	                                                        <div class="col-md-6">
+	                                                        	<div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userFirstName.valid }">
+		                                                             <label class="control-label col-md-3" for="userFirstName">First Name:</label>
+		                                                            <div class="col-md-8">
+		                                                                <input type="text" class="form-control" placeholder="First Name" name="userFirstName" id="userFirstName" [(ngModel)]="usermodel.userFirstName" #userFirstName="ngModel" required value="{{usermodel.firstname}}">
+		                                                                <div *ngIf="uf.submitted && !userFirstName.valid" class="help-block">First Name is required</div>
+		                                                            </div>
+		                                                        </div>
+		                                                        <div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userRole.valid }">
+		                                                             <label class="control-label col-md-3" for="userRole">User Role:</label>
+		                                                            <div class="col-md-8">
+		                                                                <select class="form-control" name="userRole" id="userRole" [(ngModel)]="usermodel.userRole" #userRole="ngModel" required>
+		                                                                    <option *ngFor="let userRole of userRoles;" value="{{userRole.id}}" [selected]="userRole.id === usermodel.user_role_id">{{userRole.name}}</option>
+		                                                                </select>
+		                                                                <div *ngIf="uf.submitted && !userRole.valid" class="help-block">User Role is required</div>
+		                                                            </div>
+		                                                        </div>
+		                                                        <div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userPassword.valid }">
+													              <label class="control-label col-md-3" for="userPassword">Password:</label>
+													              <div class="col-md-8">
+														              <input type="password" class="form-control" placeholder="*******" name="userPassword" id="userPassword" [(ngModel)]="usermodel.userPassword" #userPassword="ngModel" required >
+														              <div *ngIf="uf.submitted && !userPassword.valid" class="help-block">Password is required</div>
+													              </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="control-label col-md-3" for="userDescription">Profile Description</label>
+													              <div class="col-md-8">
+													              	<textarea class="form-control" placeholder="Describe about this user..." name="userDescription" id="userDescription" [(ngModel)]="usermodel.userDescription" #userDescription="ngModel" value="{{usermodel.description}}"></textarea>
+													              </div>
+													            </div>
+	                                                        </div>
+															<div class="col-md-6">
+	                                                        	<div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userLastName.valid }">
+		                                                             <label class="control-label col-md-3" for="userLastName">Last Name:</label>
+		                                                            <div class="col-md-8">
+		                                                                <input type="text" class="form-control" placeholder="Last Name" name="userLastName" id="userLastName" [(ngModel)]="usermodel.userLastName" #userLastName="ngModel" required value="{{usermodel.lastname}}">
+		                                                                <div *ngIf="uf.submitted && !userLastName.valid" class="help-block">Last Name is required</div>
+		                                                            </div>
+		                                                        </div>
+		                                                        <div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userEmailId.valid }">
+		                                                             <label class="control-label col-md-3" for="userEmailId">Email Id:</label>
+		                                                            <div class="col-md-8">
+		                                                                <input type="email" class="form-control" placeholder="Email Id" name="userEmailId" id="userEmailId" [(ngModel)]="usermodel.userEmailId" #userEmailId="ngModel" required  email="true" (blur)="checkUserEmailExist($event.target)" value="{{usermodel.email}}">
+		                                                                <div *ngIf="uf.submitted && !userEmailId.valid" class="help-block">Email Id is required</div>
+		                                                            </div>
+		                                                        </div>
+		                                                        <div class="form-group" [ngClass]="{ 'has-error': uf.submitted && !userAddress.valid }">
+												              		<label class="control-label col-md-3" for="userAddress">Location:</label>
+												              		<div class="col-md-8">
+													              		<input type="text" class="form-control" placeholder="Location" name="userAddress" id="userAddress" [(ngModel)]="usermodel.userAddress" #userAddress="ngModel" required value="{{usermodel.address}}">
+													              		<div *ngIf="uf.submitted && !userAddress.valid" class="help-block">Location is required</div>
+												              		</div>
+												            	</div>
+												            	<div class="form-group">
+												              		<label class="control-label col-md-3" for="userAcreage">Acreage:</label>
+												              		<div class="col-md-8">
+													              		<input type="text" class="form-control" placeholder="Acreage" name="userAcreage" id="userAcreage" [(ngModel)]="usermodel.userAcreage" #userAcreage="ngModel" required value="{{usermodel.acreage}}">											              		
+												              		</div>
+												            	</div>
+	                                                        </div>												            
+										            	</div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="row">
+                                                            <div class="col-md-8 col-md-offset-3">
+                                                                <button class="btn btn-success icon-btn" *ngIf="newUserAdd" [disabled]="loading" value="add"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add</button>
+                                                                <button class="btn btn-success icon-btn" *ngIf="existUserEdit" [disabled]="loading" value="edit"><i class="fa fa-fw fa-lg fa-times-circle"></i>Save</button>
+                                                                &nbsp;&nbsp;&nbsp;<button class="btn btn-danger icon-btn" type="button" (click)="resetTabActiveList();"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel</button>
+                                                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                            </div>
+                                                            <app-alert></app-alert>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- VIEW USER DETAIL Modal-->
+<div class="modal fade" id="viewUserDetail" #viewUserDetail tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="exampleModalLabel"><b>View User Details:</b></span>
+                <button class="close" type="button" (click)="closeViewUser()" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table modal-table">
+                                <tbody>
+                                    <tr>
+                                        <td><label>First Name</label></td><td>:</td><td>{{printUserDetail.firstname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Last Name</label></td><td>:</td><td>{{printUserDetail.lastname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Email Id</label></td><td>:</td><td>{{printUserDetail.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Role</label></td><td>:</td><td>{{printUserDetail.user_role_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Added date</label></td><td>:</td><td>{{printUserDetail.created_date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Status</label></td><td>:</td><td>{{printUserDetail.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" (click)="closeViewUser()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div [style.display]="loading ? 'block' : 'none'" class="seed-loading-div"><div class="seed-loading-text"></div></div>

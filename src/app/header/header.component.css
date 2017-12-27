@@ -1,0 +1,18 @@
+.main-sidebar,.sidebar-menu .treeview-menu  {background-color:#37a271;}
+.navbar.navbar-static-top,.main-header,.main-header .logo{background-color:#eaeaea}
+.main-header .logo img{width:100%;margin-top:3px;vertical-align:top}
+.main-header .navbar .sidebar-toggle{color:#333;}
+.sidebar-menu li > a,.sidebar-menu > li >ul.treeview-menu li > a {color:#fff;}
+.sidebar-menu li > a:hover,.sidebar-menu > li.active > a,.treeview-menu li a:hover {background-color:rgba(0, 0, 0, 0.1);border-left:3px solid #EEC844 !important;}
+.nav-tabs li > a{color:#333;}
+.nav-tabs li.active > a, .nav-tabs li.active > a:hover, .nav-tabs li.active > a:focus,.nav-tabs li > a:hover{color:#8CC446; border-bottom:2px solid #8CC446;}
+.tab-pane h4{color:#8CC446}
+.sidebar .user-panel > .info > .designation{font-size:16px;font-weight:bold;color:#fff;}
+ .pace .pace-progress {background: #8CC446;}
+ .pace .pace-progress-inner {-webkit-box-shadow: 0 0 10px #8CC446, 0 0 5px #8CC446;box-shadow: 0 0 10px #8CC446, 0 0 5px #8CC446;}
+ .pace .pace-activity {border-top-color: #8CC446; border-left-color: #8CC446;}
+ .sidebar .user-panel > .image > img{max-width:50px;}
+ .img-circle{background-color:transparent;border:1px solid #fff;padding:3px;}
+ .toggle-flip input[type="checkbox"] + .flip-indecator:before{background-color:#EEC844;color:#fff;}
+ .toggle-flip input[type="checkbox"] + .flip-indecator:after{background-color:#8CC446;}
+ .pull-left.info p{color:#fff;}

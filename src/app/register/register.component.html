@@ -1,0 +1,72 @@
+<section class="probootstrap-section probootstrap-bg-light" data-section="contact">
+  <div class="login-form-wrapper">    
+    <div class="login-container">
+        <div class="log-header">
+                <a class="logo" [routerLink]="['']"><img src="../../assets/images/log-logo.png"></a>
+        </div>
+        <div class="clear"></div>
+         <h2 class="text-black mt0">Register</h2>
+        <form name="regForm" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate class="probootstrap-form">
+           <div class="row">
+           		<div class="col-md-6">
+           			<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }">
+		              <label class="lo-label" for="firstname">First Name:</label>
+		              <input type="text" class="form-control" placeholder="First Name" name="firstname" id="firstname" [(ngModel)]="model.firstname" #firstname="ngModel" required >
+		              <div *ngIf="f.submitted && !firstname.valid" class="help-block">First Name is required</div>
+		            </div>
+		            <div class="form-group">
+		            	<label>Type:</label>
+		            	<span *ngFor="let userRole of userRoles;let i = index;">
+		            		<label for="user_role_id{{userRole.id}}" class="radio-inline" *ngIf="i==0">
+				                <input type="radio" name="user_role_id" id="user_role_id{{userRole.id}}" [value]=userRole.id [(ngModel)]="model.user_role_id"  #user_role_id="ngModel">
+					                {{userRole.name}}
+				        	</label>  
+				        	<label for="user_role_id{{userRole.id}}" class="radio-inline" *ngIf="i>=1">
+				                <input type="radio" name="user_role_id" id="user_role_id{{userRole.id}}" [value]=userRole.id [(ngModel)]="model.user_role_id"  #user_role_id="ngModel">
+					                {{userRole.name}}
+				        	</label> 
+		            	</span>				 
+		            </div>
+		            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+		              <label class="lo-label" for="password">Password:</label>
+		              <input type="password" class="form-control" placeholder="*******" name="password" id="password" [(ngModel)]="model.password" #password="ngModel" required >
+		              <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+		            </div>
+		            <div class="form-group">
+		              <label class="lo-label" for="description">Describe yourself</label>
+		              <textarea class="form-control" placeholder="Describe about yourself..." name="description" id="description" [(ngModel)]="model.description" #description="ngModel" ></textarea>
+		            </div>
+           		</div>
+           		<div class="col-md-6">
+           			<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }">
+		              <label class="lo-label" for="lastname">Last Name:</label>
+		              <input type="text" class="form-control" placeholder="Last Name" name="lastname" id="lastname" [(ngModel)]="model.lastname" #lastname="ngModel" required>
+		              <div *ngIf="f.submitted && !lastname.valid" class="help-block">Last Name is required</div>
+		            </div>
+		            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+		              <label class="lo-label" for="email">Email:</label>
+		              <input type="email" class="form-control" placeholder="Email Id" name="email" id="email" [(ngModel)]="model.email" #email="ngModel" required email="true" (blur)="checkEmailExist($event.target)">
+		              <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required/invalid</div>
+		            </div>
+		            
+		            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
+		              <label class="lo-label" for="address">Where do I live/my location:</label>
+		              <input type="text" class="form-control" placeholder="Location" name="address" id="address" [(ngModel)]="model.address" #address="ngModel" required >
+		              <div *ngIf="f.submitted && !address.valid" class="help-block">Location is required</div>
+		            </div>
+           		</div>
+           </div>
+            
+            <div class="form-group">
+                <a [routerLink]="['/login']" class="btn-success btn-sm login_link">Login</a>  
+              <button [disabled]="loading" class="btn btn-primary pull-right" value="register">Register</button>
+            </div>
+            <app-alert></app-alert>
+          </form>
+           <div class="clear"></div>
+          <div class="log-footer">
+              Copyright © SeedLinked 2017
+          </div>
+    </div>
+  </div>
+</section>

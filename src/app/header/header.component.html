@@ -1,0 +1,83 @@
+<div class="wrapper">
+  <!-- Navbar-->
+  <header class="main-header hidden-print" >
+      
+      
+     <a class="logo" [routerLink]="['']" *ngIf="this.header===true"><img class="" src="assets/images/log-logo.png"></a>
+      
+      
+    <nav class="navbar navbar-static-top" *ngIf="this.header===true">
+      <!-- Sidebar toggle button--><a class="sidebar-toggle" href="#" data-toggle="offcanvas"></a>
+      <!-- Navbar Right Menu-->
+      <div class="navbar-custom-menu">
+        <ul class="top-nav">
+          <!--Notification Menu-->
+          <li class="dropdown notification-menu">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-bell-o fa-lg"></i></a>
+          </li>
+          <!-- User Menu-->
+          <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu">
+            <li><a [routerLink]="['profile']">
+                <i class="fa fa-user fa-lg"></i> Profile</a></li>
+              <li><a href="javascript:void(0)" (click)="logout()">
+                <i class="fa fa-sign-out fa-lg"></i> Logout</a></li>                
+              <li>
+                {{loggeinuserdetail.userType}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Side-Nav-->
+  <aside class="main-sidebar hidden-print" *ngIf="this.header===true">
+    <section class="sidebar">
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img class="img-circle" src="assets/img/find_user.png" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{loggeinuserdetail.firstName}} {{loggeinuserdetail.lastName}} </p>
+          <p class="designation">{{loggeinuserdetail.userType}}</p>
+        </div>
+      </div>
+      <!-- Sidebar Menu-->
+      <ul class="sidebar-menu">
+        <li [ngClass]="{'active': this.router.url==='/dashboard'}">
+          <a [routerLink]="['/dashboard']" class="menu-icon">
+          <i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+        </li>
+	<li [ngClass]="{'active': this.router.url==='/myfarm'}">
+          <a [routerLink]="['/myfarm']" class="menu-icon">
+            <i class="fa fa-fire"></i><span>My Farm</span></a>
+        </li>
+        <li [ngClass]="{'active': this.router.url==='/my-bio-region'}">
+          <a [routerLink]="['/my-bio-region']" class="menu-icon">
+            <i class="fa fa-map-marker"></i><span>My Bioregion</span></a>
+        </li>
+
+        <li [ngClass]="{'active': this.router.url==='/seed-search'}">
+          <a [routerLink]="['/seed-search']"  class="menu-icon">
+            <i class="fa fa-search"></i><span>Seed Search</span></a>
+        </li>
+
+        <li class="treeview" >
+          <a href="javascript:void(0)">
+            <i class="fa fa-users"></i><span>User Management</span><i class="fa fa-angle-right"></i></a>
+          <ul class="treeview-menu" >
+            <li [ngClass]="{'active': this.router.url==='/users'}">
+              <a [routerLink]="['/users']" class="menu-icon" [ngClass]="{'active': this.router.url==='/users'}" >
+              <i class="fa fa-circle-o"></i> User List</a></li>
+            <li [ngClass]="{'active': this.router.url==='/user-role'}">
+              <a [routerLink]="['/user-role']" class="menu-icon" [ngClass]="{'active': this.router.url==='/user-role'}" >
+              <i class="fa fa-circle-o"></i> User Role</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </section>
+  </aside>
+</div>
